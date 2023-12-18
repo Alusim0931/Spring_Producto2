@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -28,7 +27,7 @@
             text-align: center;
             color: #555;
             margin-top: 10px;
-            margin-bottom: -5px; /* Reducción de distancia */
+            margin-bottom: -5px;
         }
 
         span {
@@ -36,18 +35,27 @@
             color: #007bff;
         }
 
-        a {
+        a, .nav-link {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            text-align: center;
             text-decoration: none;
-            color: #28a745;
+            border-radius: 5px;
+            font-size: 16px;
+            line-height: 20px;
+            vertical-align: middle;
         }
 
-        a:hover {
-            text-decoration: underline;
+        a:hover, .nav-link:hover {
+            background-color: #45a049;
         }
 
         form {
             position: absolute;
-            top: 45px; /* Sube el botón de logout */
+            top: 45px;
             right: 10px;
         }
 
@@ -85,11 +93,19 @@
 </label>
 <hr>
 
-<div sec:authorize="hasRole('ADMIN')">
+<div>
     <p>
-        <a th:href="@{/admin}">Leadership Meeting</a>
-        (Only for Manager peeps)
+        <a th:href="@{/menus/list}">Menus</a>
     </p>
 </div>
+
+<hr>
+
+<div>
+    <p>
+        <a th:href="@{/productos/list}">Productos</a>
+    </p>
+</div>
+
 </body>
 </html>

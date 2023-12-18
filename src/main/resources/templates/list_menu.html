@@ -1,32 +1,68 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Lista de Menús</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
+    <meta charset="UTF-8">
+    <title>Lista de Menús</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
 
-    th, td {
-      padding: 8px;
-      text-align: left;
-    }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
 
-    th {
-      background-color: #f2f2f2;
-    }
+        a {
+            display: block;
+            margin-bottom: 10px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
 
-    table, th, td {
-      border: 1px solid black;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-    .sub-table {
-      width: 100%;
-    }
-  </style>
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        .sub-table {
+            width: 100%;
+        }
+
+        td a {
+            display: inline-block;
+            margin-right: 5px;
+            background-color: #4caf50;
+            color: white;
+            padding: 5px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        td a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
@@ -35,44 +71,49 @@
 <a href="/menus/showFormForAddMenu">Añadir Menú</a>
 
 <table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Contiene</th>
-    <th>Precio</th>
-    <th>Acciones</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="menu : ${menus}">
-    <td th:text="${menu.id}"></td>
-    <td th:text="${menu.nombre}"></td>
-    <td>
-      <table class="sub-table">
-        <thead>
-        <tr>
-          <th>Plato</th>
-          <th>Descripción</th>
-          <th>Calorías</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="producto : ${menu.productos}">
-          <td th:text="${producto.nombre}"></td>
-          <td th:text="${producto.descripcion}"></td>
-          <td th:text="${producto.kcal}"></td>
-        </tr>
-        </tbody>
-      </table>
-    </td>
-    <td th:text="${#numbers.formatDecimal(menu.precio, 2, 2, 'POINT')} +' €' ">Precio</td>
-    <td>
-      <a th:href="@{'/menus/showFormForUpdateMenu?menuId=' + ${menu.id}}">Editar</a>
-      <a th:href="@{'/menus/delete?menuId=' + ${menu.id}}">Eliminar</a>
-    </td>
-  </tr>
-  </tbody>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Contiene</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="menu : ${menus}">
+        <td th:text="${menu.id}"></td>
+        <td th:text="${menu.nombre}"></td>
+        <td>
+            <table class="sub-table">
+                <thead>
+                <tr>
+                    <th>Plato</th>
+                    <th>Descripción</th>
+                    <th>Calorías</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="producto : ${menu.productos}">
+                    <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.descripcion}"></td>
+                    <td th:text="${producto.kcal}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+        <td th:text="${#numbers.formatDecimal(menu.precio, 2, 2, 'POINT')} +' €' ">Precio</td>
+        <td>
+            <div sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/menus/showFormForUpdateMenu?menuId=' + ${menu.id}}">Editar</a>
+                <a th:href="@{'/menus/delete?menuId=' + ${menu.id}}">Eliminar</a>
+            </div>
+            <div sec:authorize="hasRole('USER')">
+                <a th:href="@{'/menus/add' + ${menu.id}}">Pedir</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
 </table>
 
 </body>

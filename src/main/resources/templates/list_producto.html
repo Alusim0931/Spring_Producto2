@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Productos</title>
@@ -60,6 +60,7 @@
         }
     </style>
 </head>
+
 <body>
 
 <h2>Lista de Productos</h2>
@@ -83,8 +84,13 @@
         <td th:text="${producto.descripcion}"></td>
         <td th:text="${producto.kcal}"></td>
         <td>
-            <a th:href="@{'/productos/showFormForUpdateProducto?productoId=' + ${producto.id}}">Editar</a>
-            <a th:href="@{'/productos/delete?productoId=' + ${producto.id}}">Eliminar</a>
+            <div sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/productos/showFormForUpdateProducto?productoId=' + ${producto.id}}">Editar</a>
+                <a th:href="@{'/productos/delete?productoId=' + ${producto.id}}">Eliminar</a>
+            </div>
+            <div sec:authorize="hasRole('USER')">
+                <a th:href="@{'/productos/add' + ${producto.id}}">Pedir</a>
+            </div>
         </td>
     </tr>
     </tbody>
