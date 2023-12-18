@@ -2,6 +2,8 @@ package com.example.spring_product2.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="pedido")
 public class Pedido {
@@ -17,8 +19,14 @@ public class Pedido {
     private String direcion;
 
     @ManyToOne
-    @JoinColumn (name = "id")
+    @JoinColumn (name = "usuario_id")
     private Usuario idUsuario;
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "Menu_has_pedidos",
+            joinColumns = @JoinColumn(name = "pedidos_id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_id")
+    )
+    private List<Producto> menus;
 }

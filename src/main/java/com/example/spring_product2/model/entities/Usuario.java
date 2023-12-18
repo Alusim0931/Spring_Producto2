@@ -10,7 +10,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "usuario_id")
     private Long id;
 
     @Column(name = "nombre")
@@ -25,7 +25,7 @@ public class Usuario {
     @Column(name = "telefono")
     private int telefono;
 
-    @OneToMany(mappedBy="usuario")
+    @OneToMany(mappedBy="idUsuario")
     private List<Pedido> pedidos;
 
     public void setId(Long id) {
@@ -44,7 +44,7 @@ public class Usuario {
         return nombre;
     }
 
-    public void setApellido(String nombre){
+    public void setApellido(String apellido){
         this.apellido = apellido;
     }
 
