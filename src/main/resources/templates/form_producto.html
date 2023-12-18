@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Producto</title>
+</head>
+<body>
+
+<h2>Formulario de Producto</h2>
+
+<form action="/productos/save" method="post" th:object="${producto}">
+    <input type="hidden" th:field="*{id}">
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" th:field="*{nombre}">
+
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" name="descripcion" th:field="*{descripcion}">
+
+    <label for="kcal">Kcal:</label>
+    <input type="text" id="kcal" name="kcal" th:field="*{kcal}" />
+
+    <br>
+    <input type="submit" value="Guardar">
+</form>
+
+</body>
+</html>
