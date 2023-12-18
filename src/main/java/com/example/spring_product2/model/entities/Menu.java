@@ -2,6 +2,8 @@ package com.example.spring_product2.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="menu")
 public class Menu {
@@ -15,6 +17,22 @@ public class Menu {
 
     @Column(name = "precio")
     private float precio;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Menu_has_product",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Producto> productos;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Menu_has_pedidos",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "pedidos_id")
+    )
+    private List<Pedido> pedidos;
 
     public void setId(Long id) {
         this.id = id;
