@@ -20,14 +20,14 @@ public class MenuController {
     public String listMenus(Model model) {
         List<Menu> menus = menuService.findAll();
         model.addAttribute("menus", menus);
-        return "list";
+        return "list_menu";
     }
 
-    @GetMapping("/showFormForAdd")
+    @GetMapping("/showFormForAddMenu")
     public String showFormForAdd(Model model) {
         Menu menu = new Menu();
         model.addAttribute("menu", menu);
-        return "form";
+        return "form_menu";
     }
 
     @PostMapping("/save")
@@ -36,11 +36,11 @@ public class MenuController {
         return "redirect:/menus/list";
     }
 
-    @GetMapping("/showFormForUpdate")
+    @GetMapping("/showFormForUpdateMenu")
     public String showFormForUpdate(@RequestParam("menuId") Long id, Model model) {
         Menu menu = menuService.findById(id);
         model.addAttribute("menu", menu);
-        return "form";
+        return "form_menu";
     }
 
     @GetMapping("/delete")
