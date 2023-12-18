@@ -3,6 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>Lista de Menús</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+    }
+
+    .sub-table {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
 
@@ -10,11 +34,12 @@
 
 <a href="/menus/showFormForAddMenu">Añadir Menú</a>
 
-<table border="1">
+<table>
   <thead>
   <tr>
     <th>ID</th>
     <th>Nombre</th>
+    <th>Contiene</th>
     <th>Precio</th>
     <th>Acciones</th>
   </tr>
@@ -23,6 +48,24 @@
   <tr th:each="menu : ${menus}">
     <td th:text="${menu.id}"></td>
     <td th:text="${menu.nombre}"></td>
+    <td>
+      <table class="sub-table">
+        <thead>
+        <tr>
+          <th>Plato</th>
+          <th>Descripción</th>
+          <th>Calorías</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto : ${menu.productos}">
+          <td th:text="${producto.nombre}"></td>
+          <td th:text="${producto.descripcion}"></td>
+          <td th:text="${producto.kcal}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
     <td th:text="${#numbers.formatDecimal(menu.precio, 2, 2, 'POINT')} +' €' ">Precio</td>
     <td>
       <a th:href="@{'/menus/showFormForUpdateMenu?menuId=' + ${menu.id}}">Editar</a>

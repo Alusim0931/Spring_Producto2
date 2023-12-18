@@ -1,7 +1,9 @@
 package com.example.spring_product2.controllers;
 
 import com.example.spring_product2.model.entities.Menu;
+import com.example.spring_product2.model.entities.Producto;
 import com.example.spring_product2.model.services.IMenuService;
+import com.example.spring_product2.model.services.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,9 @@ public class MenuController {
 
     @Autowired
     private IMenuService menuService;
+
+    @Autowired
+    private IProductoService productoService;
 
     @GetMapping("/list")
     public String listMenus(Model model) {
@@ -36,10 +41,19 @@ public class MenuController {
         return "redirect:/menus/list";
     }
 
+//    @GetMapping("/showFormForUpdateMenu")
+//    public String showFormForUpdate(@RequestParam("menuId") Long id, Model model) {
+//        Menu menu = menuService.findById(id);
+//        model.addAttribute("menu", menu);
+//        return "form_menu";
+//    }
+
     @GetMapping("/showFormForUpdateMenu")
     public String showFormForUpdate(@RequestParam("menuId") Long id, Model model) {
         Menu menu = menuService.findById(id);
+        List<Producto> allProductos = productoService.findAll();
         model.addAttribute("menu", menu);
+        model.addAttribute("allProductos", allProductos);
         return "form_menu";
     }
 

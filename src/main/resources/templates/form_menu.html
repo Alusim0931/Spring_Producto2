@@ -3,6 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Menú</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
@@ -14,6 +58,15 @@
     <input type="text" id="nombre" name="nombre" th:field="*{nombre}">
     <label for="precio">Precio:</label>
     <input type="text" id="precio" name="precio" th:field="*{precio}" />
+
+    <label>Productos:</label>
+    <div th:each="producto : ${allProductos}">
+        <input type="checkbox" th:id="${'producto_' + producto.id}" th:name="productos" th:value="${producto.id}" th:checked="${menu.productos != null and menu.productos.contains(producto)}" />
+        <label th:for="${'producto_' + producto.id}" th:text="${producto.nombre}"></label>
+        <br />
+    </div>
+
+
     <br>
     <input type="submit" value="Guardar">
 </form>
