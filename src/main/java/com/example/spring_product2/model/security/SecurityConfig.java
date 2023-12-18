@@ -39,6 +39,8 @@ public class SecurityConfig {
                         configurer
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/").hasRole("USER")
+                                .requestMatchers(HttpMethod.POST, "/menus/save/**").hasRole( "ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/menus/showFormForAddMenu/**").hasRole( "ADMIN")
                                 .anyRequest().authenticated()
 
                 )
@@ -55,7 +57,10 @@ public class SecurityConfig {
                 )
                 .exceptionHandling(configurer ->
                         configurer.accessDeniedPage("/access-denied")
-                );
+                )
+                .csrf().disable();
+
+        ;
 
         return http.build();
     }

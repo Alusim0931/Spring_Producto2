@@ -2,8 +2,85 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Productos</title>
+    <title>Home</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            width: 100%;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+            margin-top: 10px;
+            margin-bottom: -5px;
+        }
+
+        span {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        a, .nav-link {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            line-height: 20px;
+            vertical-align: middle;
+        }
+
+        a:hover, .nav-link:hover {
+            background-color: #45a049;
+        }
+
+        form {
+            position: absolute;
+            top: 45px;
+            right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+
+        label {
+            display: block;
+            text-align: right;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        /* Estilos del cuerpo principal */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -62,6 +139,36 @@
 </head>
 
 <body>
+<h1>BIENVENIDO A HAPPY FOOD!!!</h1>
+
+<form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
+
+<label>
+    Has accedido como: <span sec:authentication="principal.username"></span>
+</label>
+<hr>
+
+<div>
+    <p>
+        <a th:href="@{/}">Home</a>
+    </p>
+</div>
+
+<div>
+    <p>
+        <a th:href="@{/menus/list}">Menus</a>
+    </p>
+</div>
+
+<div>
+    <p>
+        <a th:href="@{/productos/list}">Productos</a>
+    </p>
+</div>
+
+<hr>
 
 <h2>Lista de Productos</h2>
 
