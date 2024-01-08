@@ -36,7 +36,7 @@ import jakarta.persistence.*;
     public void setKcal(Integer kcal) {this.kcal=kcal;}
     public Integer getKcal() {return kcal;}
 
-    public Long setTypeid(Long typeid) {this.typeid=typeid;}
-
+    public void setTypeid(Long typeid) {this.typeid=typeid;
+    }
     public Long getTypeid() {return typeid;}
 }
