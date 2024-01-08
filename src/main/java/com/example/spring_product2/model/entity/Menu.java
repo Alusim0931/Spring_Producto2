@@ -9,11 +9,11 @@ import jakarta.persistence.*;
         @Column(name = "id")
         private Long id;
 
-        @Column(name = "nombre")
-        private String nombre;
+        @Column(name = "name")
+        private String name;
 
-        @Column(name = "precio")
-        private float precio;
+        @Column(name = "price")
+        private float price;
 
         public void setId(Long id) {
             this.id = id;
@@ -23,19 +23,19 @@ import jakarta.persistence.*;
             return id;
         }
 
-        public void setNombre(String nombre){
-            this.nombre = nombre;
+        public void setName(String name){
+            this.name = name;
         }
 
-        public String getNombre(){
-            return nombre;
+        public String getName(){
+            return name;
         }
 
-        public void setPrecio(Float precio){
-            this.precio = precio;
+        public void setPrice(Float price){
+            this.price = price;
         }
 
-        public float getPrecio(){
-            return precio;
+        public float getPrice(){
+            return price;
         }
     }
