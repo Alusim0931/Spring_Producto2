@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>Login Page</h3>
+    <form action="#" th:action="@{/authenticateTheUser}"
+                method="POST">
+
+    <div th:if="${param.error}">
+        <i>Lo siento!! Has introducido un usuario/contraseña errónea </i>
+    </div>
+
+
+    <div th:if="${param.logout}">
+        <i>Te has salido de la sesión</i>
+    </div>
+    <p>
+        User name: <input type="text" name="username">
+    </p>
+
+    <p>
+        Password: <input type="password" name="password">
+    </p>
+
+    <input type="submit" value="login">
+</form>
+
+
+
+</body>
+</html>
