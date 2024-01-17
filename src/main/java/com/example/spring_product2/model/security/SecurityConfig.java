@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
+
         UserDetails user = User.builder()
                 .username("user")
                 .password("{noop}user")
@@ -21,7 +22,7 @@ public class SecurityConfig {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password("{noop}admin")
-                .roles("ADMIN")
+                .roles("ADMIN", "USER")
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
@@ -30,8 +31,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
                         configurer
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/").hasRole("USER")
                                 .anyRequest().authenticated()
                 )
+                .exceptionHandling(configurer ->
+                        configurer
+                                .accessDeniedPage("/access-denied"))
                 .formLogin(form ->
                         form
                                 .loginPage("/showLoginPage")
@@ -39,9 +45,10 @@ public class SecurityConfig {
                                 .permitAll()
                 )
                 .logout(logout -> logout.permitAll()
+                )
+                .exceptionHandling(configurer ->
+                        configurer.accessDeniedPage("/access-denied")
                 );
-
-
 
         return http.build();
     }
