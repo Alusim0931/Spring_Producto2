@@ -1,28 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            width: 100%;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+            margin-top: 10px;
+            margin-bottom: -5px; /* Reducción de distancia */
+        }
+
+        span {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        a {
+            text-decoration: none;
+            color: #28a745;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            position: absolute;
+            top: 45px; /* Sube el botón de logout */
+            right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+
+        label {
+            display: block;
+            text-align: right;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>HOLA</h1>
-    <hr>
-    <p>
-        User: <span sec:authentication="principal.username"></span>
-        <br><br>
-        Role (s): <span sec:authentication="principal.authorities"></span>
-    </p>
-    <hr>
-    <div sec:authorize="hasRole('ADMIN')">
-        <p>
-            <a th:href="@{/admin}">Leadership Meeting</a>
-            (Only for Manger peeps)
-        </p>
-    </div>
+<h1>BIENVENIDO A HAPPY FOOD!!!</h1>
 
-        <form action="#" th:action="@{/logout}" method="POST">
-            <input type="submit" value="Logout"/>
-        </form>
+<form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
+
+<label>
+    Has accedido como: <span sec:authentication="principal.username"></span>
+</label>
+<hr>
+
+<div sec:authorize="hasRole('ADMIN')">
+    <p>
+        <a th:href="@{/admin}">Leadership Meeting</a>
+        (Only for Manager peeps)
+    </p>
+</div>
 </body>
 </html>
